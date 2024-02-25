@@ -3,7 +3,7 @@ export function Tabla({lista,deleteUsuario}) {
         <table className="table table-striped table-primary table-hover table-bordered border-primary">
             <thead className="table-dark">
                 <tr>
-                    <th>Nombre</th>
+                    <th>MiNombre</th>
                     <th>Apellido</th>
                     <th>Edad</th>
                     <th></th>
