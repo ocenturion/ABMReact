@@ -6,7 +6,7 @@ export function Tabla({lista,deleteUsuario}) {
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Edad</th>
-                    <th></th>
+                    <th>Accion</th>
                 </tr>
             </thead>
             <tbody id="tbody">
