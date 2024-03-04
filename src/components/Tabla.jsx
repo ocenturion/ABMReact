@@ -1,4 +1,4 @@
-export function Tabla({lista, fMostrarModalEliminar}) {
+export function Tabla({lista, fMostrarModalEliminar, fMostrarModalModificar}) {
     return <div>
         <table className="table table-striped table-primary table-hover table-bordered border-primary">
             <thead className="table-dark">
@@ -16,7 +16,7 @@ export function Tabla({lista, fMostrarModalEliminar}) {
                     <td>{usuario.apellido}</td>
                     <td>{usuario.edad}</td>
                     <td>
-                        <a data-toggle="tooltip" title="Modificar"><i className="bi bi-pencil text-success"></i></a>
+                        <a data-toggle="tooltip" title="Modificar" onClick={()=>{fMostrarModalModificar()}}><i className="bi bi-pencil text-success"></i></a>
                         <a data-toggle="tooltip" title="Eliminar" onClick={()=>{fMostrarModalEliminar(usuario.id)}}><i className="bi bi-trash text-danger"></i></a>
                     </td>
                 </tr>

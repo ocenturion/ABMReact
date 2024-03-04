@@ -4,6 +4,7 @@ import './App.css'
 import { useEffect, useState } from "react";
 import { ModalEliminar } from "./components/ModalEliminar";
 import { Toast } from "./components/Toast";
+import { ModalModificar } from "./components/ModalModificar";
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
 
   function deleteUsuario(idUsuario){
     console.log(idUsuario)
+    navigator.vibrate(10)
     setUsuarios(usuarios.filter(u => u.id != idUsuario))
     var myModalEl = document.getElementById('modalEliminar')
     bootstrap.Modal.getInstance(myModalEl).hide()
@@ -51,11 +53,26 @@ function App() {
     miModal.show()
   }
 
+  function mostrarModalModificar(idUsuario) {
+    console.log(idUsuario);
+    let miModal = new bootstrap.Modal(document.getElementById("modalModificar"))
+    document.getElementById('idModificar').value = idUsuario
+    miModal.show()
+  }
+
+  function modificarUsuario() {
+
+    var myModalEl = document.getElementById('modalModificar')
+    bootstrap.Modal.getInstance(myModalEl).hide()
+    
+  }
+
   return (
     <>
       <Form fCrearUsuario={crearUsuario}/>
-      <Tabla lista={usuarios} fMostrarModalEliminar={mostrarModalEliminar}/>
+      <Tabla lista={usuarios} fMostrarModalEliminar={mostrarModalEliminar} fMostrarModalModificar={mostrarModalModificar} />
       <ModalEliminar deleteUsuario={deleteUsuario}/>
+      <ModalModificar fModificarUsuario={modificarUsuario}/>
       <Toast />
     </>
   )
