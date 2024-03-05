@@ -10,6 +10,7 @@ function App() {
 
   let usuariosGuardados = JSON.parse(localStorage.getItem('usuarios')) || [];
   const [usuarios,setUsuarios] = useState(usuariosGuardados);
+  const [usuarioObj, setUsuarioObj] = useState();
   useEffect(()=>{
     localStorage.setItem('usuarios',JSON.stringify(usuarios))
   },[usuarios]);
@@ -53,15 +54,22 @@ function App() {
     miModal.show()
   }
 
-  function mostrarModalModificar(idUsuario) {
-    console.log(idUsuario);
+  function mostrarModalModificar(id, nombre, apellido, edad) {
+    console.log(id, nombre, apellido, edad);
+    setUsuarioObj([{
+      id,
+      nombre,
+      apellido,
+      edad
+    }])
+
     let miModal = new bootstrap.Modal(document.getElementById("modalModificar"))
-    document.getElementById('idModificar').value = idUsuario
+    document.getElementById('idModificar').value = id
     miModal.show()
   }
 
-  function modificarUsuario() {
-
+  function modificarUsuario(id, nombre, apellido, edad) {
+    
     var myModalEl = document.getElementById('modalModificar')
     bootstrap.Modal.getInstance(myModalEl).hide()
     
@@ -72,7 +80,7 @@ function App() {
       <Form fCrearUsuario={crearUsuario}/>
       <Tabla lista={usuarios} fMostrarModalEliminar={mostrarModalEliminar} fMostrarModalModificar={mostrarModalModificar} />
       <ModalEliminar deleteUsuario={deleteUsuario}/>
-      <ModalModificar fModificarUsuario={modificarUsuario}/>
+      <ModalModificar fModificarUsuario={modificarUsuario} usuarioParam={usuarioObj} />
       <Toast />
     </>
   )
