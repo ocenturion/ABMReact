@@ -10,7 +10,7 @@ function App() {
 
   let usuariosGuardados = JSON.parse(localStorage.getItem('usuarios')) || [];
   const [usuarios,setUsuarios] = useState(usuariosGuardados);
-  const [usuarioObj, setUsuarioObj] = useState();
+  const [usuarioObj, setUsuarioObj] = useState({});
   useEffect(()=>{
     localStorage.setItem('usuarios',JSON.stringify(usuarios))
   },[usuarios]);
@@ -55,13 +55,7 @@ function App() {
   }
 
   function mostrarModalModificar(id, nombre, apellido, edad) {
-    console.log(id, nombre, apellido, edad);
-    setUsuarioObj([{
-      id,
-      nombre,
-      apellido,
-      edad
-    }])
+    setUsuarioObj({id, nombre, apellido, edad})
 
     let miModal = new bootstrap.Modal(document.getElementById("modalModificar"))
     document.getElementById('idModificar').value = id
@@ -70,8 +64,21 @@ function App() {
 
   function modificarUsuario(id, nombre, apellido, edad) {
     
+    setUsuarios(usuarios.map(u => {
+      if (u.id === id) {
+        return {...u, nombre, apellido, edad};
+      }
+      return u;
+    }));
+    
     var myModalEl = document.getElementById('modalModificar')
     bootstrap.Modal.getInstance(myModalEl).hide()
+
+    document.getElementById("msgToast").innerHTML = "Usuario modificado correctamente";
+    document.getElementById("myToast").setAttribute("class", "toast align-items-center text-bg-danger border-0")
+    const toastLiveExample = document.getElementById('myToast')
+    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+    toastBootstrap.show()
     
   }
 

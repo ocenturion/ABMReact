@@ -1,16 +1,23 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export function ModalModificar({modificarUsuario, usuarioParam}) {
+export function ModalModificar({fModificarUsuario, usuarioParam}) {
 
     const [nombre,setNombre] = useState("")
     const [apellido,setApellido] = useState("")
     const [edad,setEdad] = useState("")
+    
+    useEffect(() => {
+        if (usuarioParam) {
+          setNombre(usuarioParam.nombre || "");
+          setApellido(usuarioParam.apellido || "");
+          setEdad(usuarioParam.edad || "");
+        }
+    }, [usuarioParam]);
 
-    console.log(usuarioParam);
-
-    function modificarUsuario() {
-        
+    function modificarUsuario(id, nombre, apellido, edad) {
+        console.log(id, nombre, apellido, edad);
+        fModificarUsuario(id, nombre, apellido, edad);        
     }
 
   return <div className="modal" id="modalModificar">
@@ -37,7 +44,7 @@ export function ModalModificar({modificarUsuario, usuarioParam}) {
           </div>
           <div className="modal-footer">
               <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-              <button type="button" className="btn btn-success" onClick={()=>{modificarUsuario(document.getElementById('idModificar').value)}}>Modificar</button>
+              <button type="button" className="btn btn-success" onClick={()=>{modificarUsuario(usuarioParam.id, nombre, apellido, edad)}}>Modificar</button>
           </div>
       </div>
   </div>
